@@ -32,4 +32,4 @@ Unit tests run using pytest library.
 `pytest`
 
 To produce coverage report in html format:
-`pytest --cov-report html --cov`
+`pytest --cov-report html --cov-fail-under=75 --cov-branch --cov`
