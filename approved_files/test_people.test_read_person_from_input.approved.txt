@@ -1,0 +1,1 @@
+args: () => {'first_name': 'Logan', 'last_name': 'Wolverine', 'height': 210, 'currency': 'USD', 'salary': 21000}

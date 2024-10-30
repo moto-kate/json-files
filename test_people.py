@@ -2,8 +2,9 @@ import sys
 import pytest
 import schema
 import json
-from unittest.mock import Mock, patch, create_autospec
 import people
+from approvaltests.approvals import verify
+from approvaltests import verify_all_combinations
 from people import parse_json, validate_people, get_people_list, \
     get_full_name, display_eur_earners, display_avg_height, \
     read_person_from_input, add_person
@@ -118,13 +119,18 @@ def test_read_person_from_input(monkeypatch):
     monkeypatch.setattr(
         'builtins.input', lambda _: next(input_values_generator))
 
-    assert read_person_from_input() == {
-        'first_name': 'Logan',
-        'last_name': 'Wolverine',
-        'height': 210,
-        'currency': 'USD',
-        'salary': 21000
-    }
+    # Instead of:
+    # assert read_person_from_input() == {
+    #     'first_name': 'Logan',
+    #     'last_name': 'Wolverine',
+    #     'height': 210,
+    #     'currency': 'USD',
+    #     'salary': 21000
+    # }
+    # verify(read_person_from_input())
+    verify_all_combinations(read_person_from_input, ())
+    # ( (some args,...), (other args...) )
+    # https://snyk.io/advisor/python/approvaltests/functions/approvaltests.verify_all_combinations
 
 
 def test_add_person(mocker):
